@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- 加载类路径下的属性文件 -->
+    <properties resource="db.properties"/>
+
+    <settings>
+        <!-- 标准的日志工厂实现 -->
+        <!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <!-- log4j 的日志工厂实现 -->
+        <setting name="logImpl" value="LOG4J"/>
+        <!-- 驼峰命名转换 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 类型别名 -->
+    <typeAliases>
+        <package name="com.lpxz.lpxzblog.entity"/>
+    </typeAliases>
+
+    <!-- 默认连接环境配置 -->
+    <environments default="mysql_developer">
+        <!-- 连接环境信息 -->
+        <environment id="mysql_developer">
+            <!-- mybatis使用jdbc事务管理方式 -->
+            <transactionManager type="jdbc"/>
+            <!-- 使用连接池的方式来获取连接 -->
+            <dataSource type="pooled">
+                <!-- 配置与数据库交互的4个必要属性 -->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- mapping文件路径配置 -->
+    <!-- mapper.xml 映射文件的绑定不能和 mapper 的接口类同时出现 -->
+    <mappers>
+        <mapper resource="com/lpxz/lpxzblog/dao/StudentMapper.xml"/>
+        <mapper resource="com/lpxz/lpxzblog/dao/TeacherMapper.xml"/>
+        <mapper resource="com/lpxz/lpxzblog/dao/UserInfoMapper.xml"/>
+        <mapper resource="com/lpxz/lpxzblog/dao/BlogMapper.xml"/>
+
+        <!-- 绑定接口 -->
+        <!--        <mapper class="com.lpxz.lpxzblog.dao.UserInfoMapper"/>-->
+    </mappers>
+</configuration>

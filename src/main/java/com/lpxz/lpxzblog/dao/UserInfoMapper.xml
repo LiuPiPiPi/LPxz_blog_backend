@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 绑定一个对应的 Dao/Mapper 接口 -->
+<mapper namespace="com.lpxz.lpxzblog.dao.UserInfoMapper">
+    <select id="getUserInfoList" resultMap="userMap">
+        select * from user_info
+    </select>
+
+    <!-- 结果集映射 -->
+    <resultMap id="userMap" type="userInfo">
+        <!-- column->数据库中的字段 property->实体类中的属性 -->
+<!--        <result column="id" property="id"></result>-->
+<!--        <result column="name" property="name"></result>-->
+        <result column="age" property="age_new"/>
+    </resultMap>
+
+    <select id="getUserInfoById" parameterType="int" resultType="userInfo">
+        select * from user_info where id = #{id}
+    </select>
+
+    <select id="getUserInfoLike" parameterType="string" resultType="java.lang.String">
+        select name from user_info where name like "%"#{name}"%"
+    </select>
+    
+    <update id="updateUserInfo" parameterType="userInfo">
+        update user_info set name = #{name}, age = #{age} where id = #{id}
+    </update>
+
+    <!-- 分页 -->
+    <select id="getUserByLimit" parameterType="map" resultType="UserInfo">
+        select * from user_info limit #{startIndex}, #{pageSize}
+    </select>
+</mapper>
